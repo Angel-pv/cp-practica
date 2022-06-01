@@ -39,19 +39,13 @@ const {
 
 var isAncestor = function(genealogyTree, ancestor, descendant){
   // Tu código aca:
-
-  if(genealogyTree.hasOwnProperty(ancestor)){
-    if(genealogyTree[ancestor].includes(descendant)) return true;
-    for(let elem of genealogyTree[ancestor]){
-      if (isAncestor(genealogyTree,elem,descendant)) return true;
-    }
-  }
-  return false;
+  
 }
 
 
 // EJERCICIO 2
 // Secuencia inventada: f(n) = f(n-1) x f(n-2) - f(n-2)
+// Secuencia inventada: f(0) = f(0-1) x f(0-2) - f(0-2)
 // Siendo f, secuenciaHenry.
 // Donde las primeras dos posiciones son dadas por el parametro recibidos y a partir de
 // la siguiente se calcula como la multiplicación de los 2 números anteriores restados al número anterior.
@@ -88,6 +82,7 @@ function secuenciaHenry(obj, n) {
 
 }
 
+
 // ---------------------
 
 // ----- LinkedList -----
@@ -104,10 +99,10 @@ function secuenciaHenry(obj, n) {
 //    lista.add(3);
 //    lista.size(); --> 3
 
-LinkedList.prototype.size = function(){
-  // Tu código aca:
+LinkedList.prototype.size = function () {
+  // Tu código acá
 
-}
+};
 
 
 // EJERCICIO 4
@@ -126,8 +121,7 @@ LinkedList.prototype.size = function(){
 //    Suponiendo que se pide una posición inválida: removeFromPos(8) --> false
 
 LinkedList.prototype.switchPos = function(pos1, pos2){
-  // Tu código aca:
-
+ 
 }
 
 // EJERCICIO 5
@@ -143,7 +137,7 @@ LinkedList.prototype.switchPos = function(pos1, pos2){
 // Continuando con el nodo 2 de la lista 2, conectandose con el nodo 2 de la lista 2.
 var mergeLinkedLists = function(linkedListOne, linkedListTwo){
   // Tu código aca:
-
+  
 }
 
 
@@ -189,7 +183,7 @@ var mergeLinkedLists = function(linkedListOne, linkedListTwo){
 // finalizar el juego.
 
 
-var cardGame = function(playerOneCards, playerTwoCards){
+function cardGame(playerOneCards, playerTwoCards) {
   // Tu código aca:
 
 }
@@ -215,6 +209,7 @@ var cardGame = function(playerOneCards, playerTwoCards){
 
 BinarySearchTree.prototype.height = function(){
   // Tu código aca:
+
 
 }
 
@@ -263,9 +258,8 @@ var binarySearch = function (array, target) {
 //   {name: 'Leo', age: 40, height: 1.83}
 // ]
 
-var specialSort = function(array, orderFunction) {
+function specialSort(array, swapFunction) {
   // Tu código aca:
-
 }
 
 // ----- Closures -----
