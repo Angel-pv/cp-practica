@@ -1,5 +1,5 @@
 // ----- IMPORTANTE -----
-
+//
 // IMPORTANTE!: Para este checkpoint tendrán en el archivo DS.js las implementaciones ya realizadas en las
 // homeworks de Queue, LinkedLis y BinarySearchTree. Sobre dicha implementación van a tener que agregar nuevos
 // métodos o construir determinadas funciones explicados más abajo. Pero todos los métodos ya implementados
