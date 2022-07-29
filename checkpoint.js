@@ -39,7 +39,22 @@ const {
 
 var isAncestor = function(genealogyTree, ancestor, descendant){
   // Tu código aca:
-  
+for (let index in genealogyTree) {
+  if (index === ancestor) {
+    let n = 0;
+    while (n < genealogyTree[index].length) {
+      if(genealogyTree[index][n] === descendant) return true;
+      n++;
+    }
+    n = 0
+    while(n < genealogyTree[index].length){
+      ancestor =genealogyTree[index][n]
+      isAncestor(genealogyTree, ancestor, descendant)
+      n++
+    }
+  }
+}
+return false // nosewe
 }
 
 
@@ -47,8 +62,7 @@ var isAncestor = function(genealogyTree, ancestor, descendant){
 // Secuencia inventada: f(n) = f(n-1) x f(n-2) - f(n-2)
 // Secuencia inventada: f(0) = f(0-1) x f(0-2) - f(0-2)
 // Siendo f, secuenciaHenry.
-// Donde las primeras dos posiciones son dadas por el parametro recibidos y a partir de
-// la siguiente se calcula como la multiplicación de los 2 números anteriores restados al número anterior.
+// Donde las primeras dos posiciones son dadas por el parametro recibidos y a partir de la siguiente se calcula como la multiplicación de los 2 números anteriores restados al número anterior.
 // object es un objeto del cual debemos obtener f(0) y f(1) siguiendo la siguiente lógica:
 // f(0) será el valor de la propiedad llamada 'first'
 // f(1) será un número igual a la cantidad de propiedades de obj
@@ -78,7 +92,12 @@ var isAncestor = function(genealogyTree, ancestor, descendant){
 
 function secuenciaHenry(obj, n) {
   // Tu código aca:
+  if (n < 0) return null;
 
+  // Obtengo f(0) y f(1)
+  if (n === 0) return obj['first'];
+  if (n === 1) return Object.keys(obj).length;
+  if (n > 1) return secuenciaHenry(obj, n - 1) * secuenciaHenry(obj, n - 2) - secuenciaHenry(obj, n - 2);
 
 }
 
@@ -101,7 +120,17 @@ function secuenciaHenry(obj, n) {
 
 LinkedList.prototype.size = function () {
   // Tu código acá
+  let count = 1
 
+  if(this.head === null) {
+    return 0
+  } else {
+    let current = this.head;
+    while (current.next) {
+      current = current.next
+      count++
+    }
+  } return count
 };
 
 
@@ -114,15 +143,33 @@ LinkedList.prototype.size = function () {
 // Aclaración: la posición cero corresponde al head de la LinkedList
 // Ejemplo 1:
 //    Suponiendo que la lista actual es: Head --> [1] --> [2] --> [3] --> [4] --> [5]
-//    lista.switchPos(1,3);
-//    Ahora la lista quedaría: Head --> [1] --> [4] --> [3] --> [2] --> [5]
+//    lista.switchPos                                     (1,              3);
+//    Ahora la lista quedaría:           Head --> [1] --> [4] --> [3] --> [2] --> [5]
 //    y la función debería haber devuelto true
 // Ejemplo 2:
 //    Suponiendo que se pide una posición inválida: removeFromPos(8) --> false
 
 LinkedList.prototype.switchPos = function(pos1, pos2){
- 
-}
+  if (pos1 > this.size() || pos1 < 0 || pos2 > this.size() || pos2 < 0) {
+    return false
+  }
+  let here = this.head;
+  let aux = [];
+  let count = 0;
+  while (here) {
+    if (count === pos1 || count === pos2) aux.push(here.value);
+    here = here.next;
+    count++;
+  }
+  here = this.head;
+  count = 0;
+  while (here) {
+    if (count === pos1 || count === pos2) here.value = aux.pop();
+    here = here.next;
+    count++;
+  }
+  return true;
+};
 
 // EJERCICIO 5
 // Implementar la función mergeLinkedLists que, a partir de dos listas simplemente enlazadas 
@@ -137,7 +184,40 @@ LinkedList.prototype.switchPos = function(pos1, pos2){
 // Continuando con el nodo 2 de la lista 2, conectandose con el nodo 2 de la lista 2.
 var mergeLinkedLists = function(linkedListOne, linkedListTwo){
   // Tu código aca:
-  
+  let yo = new LinkedList()
+  let tuL = linkedListOne.head
+  let tuR = linkedListTwo.head
+  while (tuL) {
+    yo.add(tuL.value)
+    yo.add(tuR.value)
+    tuL = tuL.next
+    tuR = tuR.next
+  }
+  return yo
+  /*
+  let mergeLinkedLists = function (linkedList1, linkedList2) {
+  let here = linkedList1.head;
+  let here2 = linkedList2.head;
+  let aux = [];
+  let aux2 = true;
+  while (aux2) {
+    if (!here && !here2) break;
+    if (here.value) { //sin .value para listas diferentes
+      aux.push(here.value);
+      here = here.next;
+    }
+    if (here2.value) { //sin .value para listas diferentes
+      aux.push(here2.value);
+      here2 = here2.next;
+    }
+  }
+  let nEw = new LinkedList();
+  for (let i = 0; i < aux.length; i++) {
+    nEw.add(aux[i]);
+  }
+  return nEw;
+};
+  */
 }
 
 
@@ -232,8 +312,11 @@ BinarySearchTree.prototype.height = function(){
 
 var binarySearch = function (array, target) {
   // Tu código aca:
-
-}
+  for (let a = 0; a < array.length; a++) {
+    if (array[a] === target) return a;
+  }
+  return -1
+};
 
 // EJERCICIO 9
 // Ordená un arreglo de objetos usando un bubble sort pero con algunas particularidades.
@@ -293,6 +376,15 @@ function specialSort(array, swapFunction) {
 function closureDetect(symptoms, min) {
   // Tu código aca:
 
+  return function(person) {
+  let count = 0
+
+  for (let i=0; i< person.symptoms.length; i++) {
+    if (symptoms.includes(person.symptoms[i])) count++; 
+  } 
+    if(count >= min) return true;
+    return false
+}
 }
 
 // -------------------
